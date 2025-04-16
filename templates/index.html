@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MV IP DESIGN TOOL</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f8f9fa; }
+        h1 { color: #007BFF; text-align: center; }
+        form { text-align: center; margin-bottom: 30px; }
+        input[type="text"] { padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc; }
+        input[type="submit"] { padding: 10px 20px; border: none; background-color: #007BFF; color: white; border-radius: 5px; cursor: pointer; }
+        table { width: 60%; margin: auto; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #dee2e6; text-align: center; }
+        th { background-color: #007BFF; color: white; }
+    </style>
+</head>
+<body>
+    <h1>MV IP DESIGN TOOL</h1>
+    <form method="POST">
+        <input type="text" name="site_name" placeholder="Enter Site Name" value="{{ site_name }}">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if results %}
+    <table>
+        <thead>
+            <tr>
+                <th>IP</th>
+                <th>LABEL</th>
+                <th>VLAN ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ "%.0f"|format(row[2]) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif site_name %}
+        <p style="text-align:center; color: red;">No data found for "{{ site_name }}"</p>
+    {% endif %}
+</body>
+</html>
